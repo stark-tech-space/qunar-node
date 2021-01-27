@@ -1,10 +1,13 @@
 import Qunar, { OrderOpt } from '../src/index';
 import dotenv from 'dotenv';
+import phin from 'phin';
 
 import startOfDay from 'date-fns/fp/startOfDay';
 import endOfDay from 'date-fns/fp/endOfDay';
 
-dotenv.config();
+dotenv.config({
+	path: `${__dirname}/../.env`,
+});
 
 const qunar = new Qunar({
 	key: 'YEZm2SMFKHqKx8Fv98oJU5RiYWXdNO1N',
