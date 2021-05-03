@@ -265,10 +265,23 @@ export type OptOrderResponse = {
 	errMsg?: string;
 };
 
+export type PriceChangesRequest = {
+	otaHotelId: string;
+	fromDate: string;
+	toDate: string;
+}[];
+
+export type PriceChangesResponse = {
+	ret?: boolean;
+	errorMsg?: string[];
+	errMsg?: string;
+};
+
 type Request = {
 	url: string;
 	parameters: object;
 	signature: string;
+	method: 'GET' | 'POST';
 };
 
 export default class Qunar {
@@ -288,16 +301,35 @@ export default class Qunar {
 	}
 
 	private async request(request: Request) {
-		const { url, parameters, signature } = request;
+		const { url, parameters, signature, method } = request;
+
+		let response: phin.IResponse | null;
 		const param = {
 			...parameters,
 			hmac: this.signature(signature),
 		};
-
-		const urlForRequest = `${this.baseUrl}${url}?${querystring.stringify(
-			param
-		)}`;
-		const response = await phin(urlForRequest);
+		switch (method) {
+			case 'GET':
+				response = await phin(
+					`${this.baseUrl}${url}?${querystring.stringify(param)}`
+				);
+				break;
+			default:
+				console.log({
+					url: `${this.baseUrl}${url}`,
+					method,
+					data: param,
+				});
+				response = await phin({
+					url: `${this.baseUrl}${url}`,
+					method,
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded',
+					},
+					data: querystring.stringify(param),
+				});
+				break;
+		}
 		const { statusCode, body } = response;
 		if (!statusCode || statusCode < 200 || statusCode >= 400) {
 			throw new Error(body);
@@ -316,9 +348,10 @@ export default class Qunar {
 			version,
 		};
 		return await this.request({
-			url: '/otaQueryOrder',
+			url: '/api/ota/otaQueryOrder',
 			parameters,
 			signature: `${parameters.fromDate}${parameters.toDate}${version}`,
+			method: 'GET',
 		});
 	}
 
@@ -342,9 +375,27 @@ export default class Qunar {
 		}, `${orderNum}${opt}`);
 
 		return await this.request({
-			url: '/otaOpt',
+			url: '/api/ota/otaOpt',
 			parameters: request,
 			signature,
+			method: 'GET',
+		});
+	}
+
+	async priceChanges(
+		request: PriceChangesRequest
+	): Promise<PriceChangesResponse> {
+		const signature = request.reduce((prev, { otaHotelId }) => {
+			return `${prev}${(otaHotelId || '').toString()}`;
+		}, '');
+
+		return await this.request({
+			url: '/ota/changeprice/norm/param/push?format=json&type=update_hotel',
+			parameters: {
+				content: JSON.stringify({ changeInfoList: request }),
+			},
+			signature,
+			method: 'POST',
 		});
 	}
 }

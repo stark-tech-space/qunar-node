@@ -22,4 +22,7 @@ jobs:
       - name: Install Node Dependencies
         run: npm install
       - name: Run Tests
+        env:
+          DEFAULT_BASE_URL: ${{ secrets.DEFAULT_BASE_URL }}
+          API_KEY: ${{ secrets.API_KEY }}
         run: npm test
