@@ -272,9 +272,9 @@ export type PriceChangesRequest = {
 }[];
 
 export type PriceChangesResponse = {
-	ret?: boolean;
-	errorMsg?: string[];
-	errMsg?: string;
+	status?: number;
+	errorCode?: string;
+	errorMsg?: string;
 };
 
 type Request = {
