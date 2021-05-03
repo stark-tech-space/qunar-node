@@ -10,8 +10,8 @@ dotenv.config({
 });
 
 const qunar = new Qunar({
-	key: process.env.API_KEY || '',
-	baseUrl: process.env.DEFAULT_BASE_URL || '',
+	key: 'http://k3sp.opentrade.qunar.com',
+	baseUrl: 'YEZm2SMFKHqKx8Fv98oJU5RiYWXdNO1N',
 });
 
 describe('Qunar Integration Test', () => {
