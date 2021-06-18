@@ -393,9 +393,9 @@ export default class Qunar {
     }, '');
     
     if (hotelIds.length > 0) {
-      hotelIds.substring(1);
+      hotelIds = hotelIds.substring(1);
     }
-    
+
 		return await this.request({
 			url: '/ota/changeprice/norm/param/push?format=json&type=update_hotel',
 			parameters: {

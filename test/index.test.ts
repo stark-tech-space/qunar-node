@@ -18,23 +18,23 @@ describe('Qunar Integration Test', () => {
 	it('should pass the assertions', async () => {
 		const now = new Date();
 
-		const queryResponse = await qunar.queryOrderList({
-			fromDate: startOfDay(subDays(6, now)),
-			toDate: endOfDay(now),
-			version: '3.7',
-		});
+		// const queryResponse = await qunar.queryOrderList({
+		// 	fromDate: startOfDay(subDays(6, now)),
+		// 	toDate: endOfDay(now),
+		// 	version: '3.7',
+		// });
 
-		console.log(queryResponse);
-		expect(queryResponse).toBeDefined();
+		// console.log(queryResponse);
+		// expect(queryResponse).toBeDefined();
 
-		const optOrderResponse = await qunar.optOrder({
-			orderNum: '4544656465',
-			opt: OrderOpt.ADD_REMARKS,
-			remark: 'hello i am a remark',
-		});
+		// const optOrderResponse = await qunar.optOrder({
+		// 	orderNum: '4544656465',
+		// 	opt: OrderOpt.ADD_REMARKS,
+		// 	remark: 'hello i am a remark',
+		// });
 
-		console.log(optOrderResponse);
-		expect(optOrderResponse).toBeDefined();
+		// console.log(optOrderResponse);
+		// expect(optOrderResponse).toBeDefined();
 
 		// const priceChanges = await qunar.priceChanges([
 		// 	{
@@ -46,5 +46,9 @@ describe('Qunar Integration Test', () => {
 
 		// console.log(priceChanges);
 		// expect(priceChanges).toBeDefined();
+    const hello = ",test"
+    const test = hello.substring(1);
+    console.log(test)
+    console.log(hello)
 	});
 });
