@@ -386,11 +386,16 @@ export default class Qunar {
 
 	async priceChanges(
 		request: PriceChangesRequest
-	): Promise<PriceChangesResponse> {
-		const hotelIds = request.reduce((prev, { otaHotelId }) => {
+  ): Promise<PriceChangesResponse> {
+  
+		let hotelIds = request.reduce((prev, { otaHotelId }) => {
 			return `${prev},${(otaHotelId || '').toString()}`;
-		}, '');
-
+    }, '');
+    
+    if (hotelIds.length > 0) {
+      hotelIds.substring(1);
+    }
+    
 		return await this.request({
 			url: '/ota/changeprice/norm/param/push?format=json&type=update_hotel',
 			parameters: {
