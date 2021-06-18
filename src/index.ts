@@ -385,8 +385,8 @@ export default class Qunar {
 	async priceChanges(
 		request: PriceChangesRequest
 	): Promise<PriceChangesResponse> {
-		const signature = request.reduce((prev, { otaHotelId }) => {
-			return `${prev}${(otaHotelId || '').toString()}`;
+		const hotelIds = request.reduce((prev, { otaHotelId }) => {
+			return `${prev},${(otaHotelId || '').toString()}`;
 		}, '');
 
 		return await this.request({
@@ -394,7 +394,7 @@ export default class Qunar {
 			parameters: {
 				content: JSON.stringify({ changeInfoList: request }),
 			},
-			signature,
+      signature: hotelIds,
 			method: 'POST',
 		});
 	}
