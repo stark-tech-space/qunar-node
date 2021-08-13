@@ -1,6 +1,6 @@
 {
 	"name": "@stark-tech-space/qunar-node",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"description": "Qunar Api node implementation",
 	"main": "lib/index.js",
 	"scripts": {

@@ -295,11 +295,7 @@ export default class Qunar {
 	}
 
 	private signature(propertyStr: string): string {
-		propertyStr = `${this.key}${propertyStr}`;
-    console.log(`Signature before md5 ${propertyStr}`);
-    const encodeSignature = CryptoJS.MD5(propertyStr).toString();
-    console.log(`Encode signature with md5 ${encodeSignature}`);
-    return encodeSignature;
+		return CryptoJS.MD5(`${this.key}${propertyStr}`).toString();
 	}
 
 	private async request(request: Request) {
