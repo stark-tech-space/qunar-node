@@ -206,7 +206,15 @@ export type QueryOrderListResponse = {
 };
 
 export enum OrderOpt {
+	/**
+	 * 国内已废弃
+	 * 
+	 * 国内即时 - ARRANGE_ROOM
+	 * 
+	 * 国内非即时 - CONFIRM_AND_ARRANGE_ROOM
+	 */
 	CONFIRM_ROOM_SUCCESS = 'CONFIRM_ROOM_SUCCESS',
+	CONFIRM_AND_ARRANGE_ROOM = 'CONFIRM_AND_ARRANGE_ROOM',
 	CONFIRM_ROOM_FAILURE = 'CONFIRM_ROOM_FAILURE',
 	ARRANGE_ROOM = 'ARRANGE_ROOM',
 	ADD_REMARKS = 'ADD_REMARKS',
